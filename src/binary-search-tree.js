@@ -13,24 +13,31 @@ const { NotImplementedError } = require('../extensions/index.js');
 //     this.right = null;
 //   }
 // }
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
 class BinarySearchTree {
 
   root() {
-   throw new NotImplementedError('Not implemented');
-  }
+    return this.root;
+}
 
   add(data) {
-   if (!this.root()) {
-     this.root = new Node(data);
-     return;
-   }
-
-   const node = this._add(data, this.root());
-
-   if (node.data < this.root().data) {
-     this.root = node;
-   }
+  if (!this.root) {
+    this.root = new Node(data);
+    return;
   }
+
+  const node = this._add(data, this.root);
+
+  if (node.data < this.root().data) {
+    this.root = node;
+  }
+}
 
   _add(data, node) {
    if (data < node.data) {
@@ -68,36 +75,35 @@ class BinarySearchTree {
    }
   }
   has(data) {
-      return this._find(data, this.root()) !== null;
-  }
-   remove(data) {
-      this.root = this._remove(data, this.root());
-  }
+  return this._find(data, this.root()) !== null;
+}
+ remove(data) {
+  this.root = this._remove(data, this.root);
+}
 
-  _remove(data, node) {
-      if (node === null) {
-          return null;
-      }
-
-      if (data < node.data) {
-          node.left = this._remove(data, node.left);
-      } else if (data > node.data) {
-          node.right = this._remove(data, node.right);
-      } else {
-          if (node.left === null) {
-              return node.right;
-          } else if (node.right === null) {
-              return node.left;
-          } else {
-              const successor = this._findMin(node.right);
-              node.data = successor.data;
-              node.right = this._remove(successor.data, node.right);
-          }
-      }
-
-      return node;
+_remove(data, node) {
+  if (node === null) {
+    return null;
   }
 
+  if (data < node.data) {
+    node.left = this._remove(data, node.left);
+  } else if (data > node.data) {
+    node.right = this._remove(data, node.right);
+  } else {
+    if (node.left === null) {
+      return node.right;
+    } else if (node.right === null) {
+      return node.left;
+    } else {
+      const successor = this._findMin(node.right);
+      node.data = successor.data;
+      node.right = this._remove(successor.data, node.right);
+    }
+  }
+
+  return node;
+}
    min() {
       if (this.root === null) {
           return null;
@@ -126,9 +132,6 @@ class BinarySearchTree {
   }
 
 }
-
-
-
 
 module.exports = {
   BinarySearchTree
