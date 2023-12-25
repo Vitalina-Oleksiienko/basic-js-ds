@@ -26,7 +26,7 @@ class Queue {
   }
 
   getUnderlyingList() {
-    return this.head; 
+    return this.head;
   }
 
   enqueue(value) {
@@ -38,7 +38,7 @@ class Queue {
       this.head = newNode;
     }
 
-    this.tail = newNode; 
+    this.tail = newNode;
   }
 
   dequeue() {
